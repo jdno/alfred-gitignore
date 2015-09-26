@@ -11,54 +11,55 @@ repo_dir = workflow.datafile("gitignore")
 
 
 def main(wf):
-    return_value = 0
-
     if not os.path.isdir(repo_dir):
-        return_value = clone_repo(wf.datafile(""))
+        clone_repo()
     else:
-        return_value = pull_repo(repo_dir)
+        pull_repo()
 
-    update_templates(repo_dir)
+    update_templates()
 
-    if return_value:
-        print "ERROR. Templates could not be downloaded."
-    else:
-        print "Templates have been successfully updated."
+    print "Templates have been successfully updated."
 
 
-def clone_repo(parent_dir):
-    return_value = 0
-
+def clone_repo():
     try:
-        os.chdir(parent_dir)
-        return_value = git.clone("https://github.com/github/gitignore.git")
+        os.chdir(workflow.datafile(""))
+        git.clone("https://github.com/github/gitignore.git")
     except:
-        return_value = -1
-
-    return return_value
+        handle_exception()
+    return 0
 
 
 def pull_repo():
-    return_value = 0
-
     try:
         os.chdir(repo_dir)
-        return_code = git.pull()
+        git.pull()
     except:
-        return_value = -1
+        handle_exception()
+    return 0
 
-    return return_value
+
+def handle_exception():
+    e = sys.exc_info()[0]
+    if e.__name__ == "ErrorReturnCode_128":
+        print "'git clone' failed due to an unknown reason. Please contact the support."
+    else:
+        print "An unknown error occured. Please contact the support."
+    sys.exit(-1)
 
 
 def update_templates():
-    wf.clear_data(lambda f: f.startswith("templates"))
-    store_template_names(repo_dir)
+    workflow.clear_data(lambda f: f.startswith("templates"))
+    store_template_names()
+    return 0
 
 
 def store_template_names():
-    templates = get_template_names(repo_dir)
+    templates = get_template_names()
     templates.sort()
-    wf.store_data('templates', templates)
+
+    workflow.store_data('templates', templates)
+    return 0
 
 
 def get_template_names():
