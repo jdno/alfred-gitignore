@@ -1,0 +1,35 @@
+# pre-commit configuration
+#
+# We use pre-commit to enforce a consistency in our repositories. By default,
+# YAML and Markdown files get linted, and Prettier runs to auto-format the file
+# types it supports. Clippy and Rustfmt do the same for Rust files.
+#
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: master
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/adrienverge/yamllint
+    rev: master
+    hooks:
+      - id: yamllint
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: master
+    hooks:
+      - id: markdownlint
+  - repo: https://github.com/prettier/prettier
+    rev: master
+    hooks:
+      - id: prettier
+  - repo: https://github.com/jdno/pre-commit-rust
+    rev: v1.1.0
+    hooks:
+      - id: clippy
+        args: [--all-targets, --all-features, --, -D, warnings]
+      - id: fmt
