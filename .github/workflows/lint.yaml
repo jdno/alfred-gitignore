@@ -1,0 +1,43 @@
+---
+name: Lint
+
+on: [push]
+
+jobs:
+  markdown:
+    name: Markdown
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: markdownlint-cli
+        uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: "**/*.md"
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: prettier
+        uses: creyD/prettier_action@v2.1
+        with:
+          branch: ${{ github.head_ref }}
+          dry: true
+
+  yaml:
+    name: YAML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run yamllint
+        uses: actionshub/yamllint@v1.0.0
