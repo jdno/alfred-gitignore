@@ -48,4 +48,4 @@ after three days.
 ## License
 
 This project is open source under the terms of the MIT license. See
-[LICENSE.txt](./LICENSE.txt) for more details.
+[LICENSE.txt](LICENSE) for more details.
