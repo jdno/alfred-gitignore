@@ -11,6 +11,16 @@ readme = "README.md"
 repository = "https://github.com/jdno/alfred-gitignore"
 
 categories = ["command-line-utilities"]
-keyword = ["cli", "git", "gitignore", "alfred", "workflow"]
+keywords = ["cli", "git", "gitignore", "alfred", "workflow"]
 
 [dependencies]
+alfred = "4.0.2"
+clap = "2.33.0"
+getset = "0.1.0"
+reqwest = { version = "0.10.4", features = ["blocking"] }
+zip = "0.5.5"
+
+[dev-dependencies]
+assert_cmd = "1.0.1"
+mockito = "0.25.1"
+tempdir = "0.3.7"
