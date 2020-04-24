@@ -1,11 +1,9 @@
 use crate::repository::Repository;
-use crate::update::update_repository;
 use clap::{crate_version, App, Arg, SubCommand};
 use std::path::PathBuf;
 use std::process::exit;
 
 mod repository;
-mod update;
 
 const UPDATE_COMMAND: &str = "update";
 
@@ -27,11 +25,7 @@ fn main() {
         )
         .get_matches();
 
-    let repository = initialize_repository(matches.value_of("repository"));
-
-    if let Some(_matches) = matches.subcommand_matches(UPDATE_COMMAND) {
-        update_repository(&repository).unwrap();
-    }
+    let _repository = initialize_repository(matches.value_of("repository"));
 }
 
 fn initialize_repository(path: Option<&str>) -> Repository {
