@@ -8,7 +8,7 @@ fn update() {
 
     let repository = TempDir::new("alfred-gitignore").unwrap();
     command.arg("--repository").arg(repository.path());
-    command.arg("update");
+    command.arg("--update");
 
     command.assert().success();
 

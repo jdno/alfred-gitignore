@@ -1,10 +1,12 @@
+use crate::command::update::Update;
 use crate::repository::Repository;
 use alfred::ItemBuilder;
-use clap::{crate_version, App, Arg, SubCommand};
+use clap::{crate_version, App, Arg};
 use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
+mod command;
 mod repository;
 
 const UPDATE_COMMAND: &str = "update";
@@ -21,13 +23,21 @@ fn main() {
                 .long("repository")
                 .takes_value(true),
         )
-        .subcommand(
-            SubCommand::with_name(UPDATE_COMMAND)
-                .about("Download the latest .gitignore templates from GitHub"),
+        .arg(
+            Arg::with_name(UPDATE_COMMAND)
+                .help("Update the repository or workflow data directory")
+                .short("u")
+                .long(UPDATE_COMMAND),
         )
         .get_matches();
 
-    let _repository = initialize_repository(matches.value_of("repository"));
+    let repository = initialize_repository(matches.value_of("repository"));
+
+    if matches.is_present("update") {
+        Update::perform(&repository);
+    }
+
+    alfred::json::write_items(stdout(), &[Update::item()]).unwrap();
 }
 
 fn initialize_repository(path: Option<&str>) -> Repository {
