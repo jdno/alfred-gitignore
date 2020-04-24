@@ -1,5 +1,7 @@
 use crate::repository::Repository;
+use alfred::ItemBuilder;
 use clap::{crate_version, App, Arg, SubCommand};
+use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
@@ -33,19 +35,27 @@ fn initialize_repository(path: Option<&str>) -> Repository {
         Some(path) => PathBuf::from(path),
         None => match alfred::env::workflow_data() {
             Some(path) => path,
-            None => {
-                eprintln!("Failed to set up data directory. Either run the CLI through Alfred, or pass the --repository option.");
-                exit(1);
-            }
+            None => exit_with_error(&Error::new(
+                ErrorKind::NotFound,
+                "Alfred did not provide a data directory to the workflow",
+            )),
         },
     };
 
     match Repository::new(repository_path) {
         Ok(repository) => repository,
-        Err(error) => {
-            eprintln!("Failed to initialize repository with the following error:");
-            eprintln!("{}", error);
-            exit(1);
-        }
+        Err(error) => exit_with_error(&error),
     }
+}
+
+fn exit_with_error(error: &Error) -> ! {
+    alfred::json::write_items(
+        stdout(),
+        &[ItemBuilder::new("Error running gitignore workflow")
+            .subtitle(error.to_string())
+            .into_item()],
+    )
+    .unwrap();
+
+    exit(1);
 }
