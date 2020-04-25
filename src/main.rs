@@ -9,6 +9,9 @@ use std::process::exit;
 mod command;
 mod repository;
 
+#[cfg(test)]
+mod testing;
+
 const UPDATE_COMMAND: &str = "update";
 
 fn main() {
