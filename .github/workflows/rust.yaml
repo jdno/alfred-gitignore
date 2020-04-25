@@ -67,7 +67,7 @@ jobs:
           args: --all -- --check
 
   coverage:
-    name: Test (ubuntu-latest)
+    name: Test (Coverage)
     runs-on: ubuntu-latest
 
     steps:
