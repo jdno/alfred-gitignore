@@ -48,11 +48,11 @@ impl Query {
     ///
     /// Since users can provide arbitrary strings as a query, this method exists to filter their
     /// input to a list of templates that exist in the repository.
-    pub fn sanitized_query(&self) -> Vec<String> {
-        self.query_map
+    pub fn sanitized_query(&self) -> Vec<Template> {
+        self.templates_map
             .iter()
-            .filter(|(key, _query)| self.templates_map.contains_key(*key))
-            .map(|(_key, query)| query)
+            .filter(|(key, _template)| self.query_map.contains_key(*key))
+            .map(|(_key, template)| template)
             .cloned()
             .collect()
     }
@@ -138,7 +138,7 @@ mod tests {
             .sanitized_query();
 
         assert_eq!(1, query.len());
-        assert_eq!(&String::from("Apples"), query.first().unwrap())
+        assert_eq!(&String::from("apples"), query.first().unwrap().name());
     }
 
     #[test]
