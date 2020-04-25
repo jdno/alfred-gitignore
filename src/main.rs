@@ -10,6 +10,7 @@ use std::process::exit;
 mod select;
 mod update;
 
+mod builder;
 mod query;
 mod repository;
 
