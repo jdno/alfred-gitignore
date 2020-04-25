@@ -49,10 +49,12 @@ impl Query {
     /// Since users can provide arbitrary strings as a query, this method exists to filter their
     /// input to a list of templates that exist in the repository.
     pub fn sanitized_query(&self) -> Vec<Template> {
-        self.templates_map
+        self.query
             .iter()
-            .filter(|(key, _template)| self.query_map.contains_key(*key))
-            .map(|(_key, template)| template)
+            .filter_map(|input| {
+                let sanitized_input = input.to_lowercase();
+                self.templates_map.get(sanitized_input.as_str())
+            })
             .cloned()
             .collect()
     }
