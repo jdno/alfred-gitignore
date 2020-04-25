@@ -1,18 +1,20 @@
-use crate::command::update::Update;
 use crate::repository::Repository;
+use crate::update::Update;
 use alfred::ItemBuilder;
 use clap::{crate_version, App, Arg};
 use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
-mod command;
+mod update;
 
 mod query;
 mod repository;
 
 #[cfg(test)]
 mod testing;
+
+const TEMPLATES_ARG: &str = "TEMPLATES";
 
 const UPDATE_COMMAND: &str = "update";
 
@@ -33,6 +35,11 @@ fn main() {
                 .help("Update the repository or workflow data directory")
                 .short("u")
                 .long(UPDATE_COMMAND),
+        )
+        .arg(
+            Arg::with_name(TEMPLATES_ARG)
+                .help("Provide a list of templates")
+                .multiple(true),
         )
         .get_matches();
 

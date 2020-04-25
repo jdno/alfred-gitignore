@@ -10,8 +10,9 @@ pub struct Update<'a> {
 
 impl<'a> Update<'a> {
     pub fn item() -> Item<'a> {
-        ItemBuilder::new("Update gitignore templates")
+        ItemBuilder::new("Update .gitignore templates")
             .subtitle("Download the latest templates from github/gitignore")
+            .arg("--update")
             .into_item()
     }
 
