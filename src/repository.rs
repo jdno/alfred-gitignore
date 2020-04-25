@@ -12,7 +12,7 @@ const ARCHIVE: &str = "https://github.com/github/gitignore/archive/master.zip";
 /// The repository is a copy of the [github/gitignore](https://github.com/github/gitignore) Git
 /// repository, and contains all `.gitignore` files. A local copy of the remote repository is
 /// maintained on disk to speed up searches and to provide offline capabilities.
-#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default, Getters)]
+#[derive(Debug, Getters)]
 pub struct Repository {
     /// Returns the path to the repository.
     #[getset(get = "pub")]
@@ -37,10 +37,14 @@ impl Repository {
     }
 
     /// Returns a list of templates in the repository.
+    ///
+    /// The templates in a repository are all the `*.gitignore` files in its path. Since this is a
+    /// convention, only the base names of the files are returned without their ending. For example,
+    /// only `GitHub` is returned for the template `GitHub.gitignore`.
     pub fn templates(&self) -> Result<Vec<String>, Error> {
         let entries = read_dir(self.path())?;
 
-        let templates = entries
+        let mut templates: Vec<String> = entries
             .filter_map(|entry| {
                 let entry = match entry {
                     Ok(entry) => entry,
@@ -54,12 +58,14 @@ impl Repository {
                 };
 
                 if file_name.ends_with(".gitignore") {
-                    Some(String::from(file_name))
+                    Some(String::from(file_name).replace(".gitignore", ""))
                 } else {
                     None
                 }
             })
             .collect();
+
+        templates.sort();
 
         Ok(templates)
     }
@@ -150,6 +156,7 @@ impl Repository {
 #[cfg(test)]
 mod tests {
     use crate::repository::Repository;
+    use crate::testing::initialize_repository;
     use mockito::{mock, Mock};
     use std::fs::{remove_file, File};
     use std::io::{ErrorKind, Write};
@@ -214,5 +221,15 @@ mod tests {
 
         let gitignore_count = repository.templates().unwrap().len();
         assert_eq!(229, gitignore_count);
+    }
+
+    #[test]
+    fn templates_returns_names() {
+        let repository_path = TempDir::new("alfred-gitignore").unwrap();
+        let repository = initialize_repository(repository_path.path()).unwrap();
+
+        let templates = repository.templates().unwrap();
+
+        assert_eq!(vec!["apples", "oranges"], templates);
     }
 }
