@@ -66,33 +66,38 @@ impl Query {
     /// If only a single match is found, it indicates that the last element is already correct and
     /// done. In this case, all templates except the ones in the current query are returned.
     pub fn suggestions(&self) -> Vec<String> {
-        let last_element = match self.query.last() {
-            Some(element) => element.to_lowercase(),
-            None => {
-                return self
-                    .templates_map
+        let last_element = self.query.last();
+
+        let mut suggestions: Vec<String> = if let Some(last_element) = last_element {
+            let last_element = last_element.to_lowercase();
+
+            if self.templates_map.contains_key(last_element.as_str()) {
+                self.templates_map
                     .iter()
+                    .filter(|(key, _template)| !self.query_map.contains_key(*key))
+                    .map(|(_key, template)| template.name())
+                    .cloned()
+                    .collect()
+            } else {
+                self.templates_map
+                    .iter()
+                    .filter(|(_key, template)| {
+                        template.comparator().starts_with(last_element.as_str())
+                    })
                     .map(|(_key, template)| template.name())
                     .cloned()
                     .collect()
             }
-        };
-
-        if self.templates_map.contains_key(last_element.as_str()) {
-            self.templates_map
-                .iter()
-                .filter(|(key, _template)| !self.query_map.contains_key(*key))
-                .map(|(_key, template)| template.name())
-                .cloned()
-                .collect()
         } else {
             self.templates_map
                 .iter()
-                .filter(|(_key, template)| template.comparator().starts_with(last_element.as_str()))
                 .map(|(_key, template)| template.name())
                 .cloned()
                 .collect()
-        }
+        };
+
+        suggestions.sort();
+        suggestions
     }
 }
 
