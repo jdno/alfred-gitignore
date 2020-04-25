@@ -12,5 +12,5 @@ fn default_without_args() {
     command
         .assert()
         .success()
-        .stdout(predicate::str::contains("--update"));
+        .stdout(predicate::str::contains("--select").and(predicate::str::contains("--update")));
 }

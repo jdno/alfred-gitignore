@@ -1,4 +1,5 @@
 use crate::repository::Repository;
+use crate::select::Select;
 use crate::update::Update;
 use alfred::ItemBuilder;
 use clap::{crate_version, App, Arg};
@@ -6,6 +7,7 @@ use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
+mod select;
 mod update;
 
 mod query;
@@ -16,6 +18,7 @@ mod testing;
 
 const TEMPLATES_ARG: &str = "TEMPLATES";
 
+const SELECT_COMMAND: &str = "select";
 const UPDATE_COMMAND: &str = "update";
 
 fn main() {
@@ -29,6 +32,12 @@ fn main() {
                 .short("r")
                 .long("repository")
                 .takes_value(true),
+        )
+        .arg(
+            Arg::with_name(SELECT_COMMAND)
+                .help("Select templates to combine them into a single file")
+                .short("s")
+                .long("select"),
         )
         .arg(
             Arg::with_name(UPDATE_COMMAND)
@@ -49,7 +58,11 @@ fn main() {
         Update::perform(&repository);
     }
 
-    alfred::json::write_items(stdout(), &[Update::item()]).unwrap();
+    if matches.is_present("select") {
+        Select::perform(&repository, matches.values_of(TEMPLATES_ARG));
+    }
+
+    alfred::json::write_items(stdout(), &[Select::item(), Update::item()]).unwrap();
 }
 
 fn initialize_repository(path: Option<&str>) -> Repository {

@@ -8,7 +8,7 @@ use zip::ZipArchive;
 const ARCHIVE: &str = "https://github.com/github/gitignore/archive/master.zip";
 
 /// A template represents a `*.gitignore` file in a repository.
-#[derive(Debug, Getters)]
+#[derive(Clone, Debug, Getters)]
 pub struct Template {
     /// Returns the name of the template.
     #[getset(get = "pub")]
