@@ -1,3 +1,4 @@
+use crate::build::Build;
 use crate::repository::Repository;
 use crate::select::Select;
 use crate::update::Update;
@@ -7,6 +8,7 @@ use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
+mod build;
 mod select;
 mod update;
 
@@ -19,6 +21,7 @@ mod testing;
 
 const TEMPLATES_ARG: &str = "TEMPLATES";
 
+const BUILD_COMMAND: &str = "build";
 const SELECT_COMMAND: &str = "select";
 const UPDATE_COMMAND: &str = "update";
 
@@ -33,6 +36,12 @@ fn main() {
                 .short("r")
                 .long("repository")
                 .takes_value(true),
+        )
+        .arg(
+            Arg::with_name(BUILD_COMMAND)
+                .help("Create a single .gitignore file from the templates")
+                .short("b")
+                .long("build"),
         )
         .arg(
             Arg::with_name(SELECT_COMMAND)
@@ -54,6 +63,10 @@ fn main() {
         .get_matches();
 
     let repository = initialize_repository(matches.value_of("repository"));
+
+    if matches.is_present("build") {
+        Build::perform(repository, matches.values_of(TEMPLATES_ARG));
+    }
 
     if matches.is_present("update") {
         Update::perform(&repository);
