@@ -30,8 +30,8 @@ fn build() {
     command.arg("--build");
     command.arg("apples");
 
-    command.assert().success().stdout(
-        predicate::str::contains("alfred-gitignore-")
-            .and(predicate::str::contains("\"type\":\"file\"")),
-    );
+    command
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("### apples.gitignore"));
 }
