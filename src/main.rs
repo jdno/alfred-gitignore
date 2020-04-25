@@ -22,7 +22,6 @@ mod testing;
 const TEMPLATES_ARG: &str = "TEMPLATES";
 
 const BUILD_COMMAND: &str = "build";
-const SELECT_COMMAND: &str = "select";
 const UPDATE_COMMAND: &str = "update";
 
 fn main() {
@@ -44,12 +43,6 @@ fn main() {
                 .long("build"),
         )
         .arg(
-            Arg::with_name(SELECT_COMMAND)
-                .help("Select templates to combine them into a single file")
-                .short("s")
-                .long("select"),
-        )
-        .arg(
             Arg::with_name(UPDATE_COMMAND)
                 .help("Update the repository or workflow data directory")
                 .short("u")
@@ -64,19 +57,15 @@ fn main() {
 
     let repository = initialize_repository(matches.value_of("repository"));
 
-    if matches.is_present("build") {
+    if matches.is_present(BUILD_COMMAND) {
         Build::perform(repository, matches.values_of(TEMPLATES_ARG));
     }
 
-    if matches.is_present("update") {
+    if matches.is_present(UPDATE_COMMAND) {
         Update::perform(&repository);
     }
 
-    if matches.is_present("select") {
-        Select::perform(&repository, matches.values_of(TEMPLATES_ARG));
-    }
-
-    alfred::json::write_items(stdout(), &[Select::item(), Update::item()]).unwrap();
+    Select::perform(&repository, matches.values_of(TEMPLATES_ARG));
 }
 
 fn initialize_repository(path: Option<&str>) -> Repository {

@@ -4,7 +4,7 @@ use std::collections::hash_map::DefaultHasher;
 use std::env::temp_dir;
 use std::fs::{read_to_string, File};
 use std::hash::{Hash, Hasher};
-use std::io::{copy, Error, Read, Write};
+use std::io::{Error, Write};
 use std::path::PathBuf;
 
 const FILE_NAME_PREFIX: &str = "alfred-gitignore-";

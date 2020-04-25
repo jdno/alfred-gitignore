@@ -1,7 +1,8 @@
 use crate::exit_with_error;
 use crate::query::Query;
 use crate::repository::Repository;
-use alfred::{Item, ItemBuilder};
+use crate::update::Update;
+use alfred::ItemBuilder;
 use clap::Values;
 use std::io::stdout;
 use std::process::exit;
@@ -11,13 +12,6 @@ pub struct Select<'a> {
 }
 
 impl<'a> Select<'a> {
-    pub fn item() -> Item<'a> {
-        ItemBuilder::new("Create a new .gitignore file")
-            .subtitle("Select templates and combine them into a single .gitignore file")
-            .arg("--select")
-            .into_item()
-    }
-
     pub fn perform(repository: &Repository, selections: Option<Values>) -> ! {
         let selections = match selections {
             Some(values) => Some(values.collect()),
@@ -29,7 +23,7 @@ impl<'a> Select<'a> {
         };
         let query_string = Select::construct_query_string(&query);
 
-        let mut items = Vec::new();
+        let mut items = vec![Update::item()];
 
         for suggestion in query.suggestions() {
             let mut autocomplete = query_string.clone();
@@ -50,7 +44,7 @@ impl<'a> Select<'a> {
     }
 
     fn construct_query_string(query: &Query) -> String {
-        let mut query_string = String::from("--select");
+        let mut query_string = String::new();
         let sanitized_query = query.sanitized_query();
 
         if !sanitized_query.is_empty() {
