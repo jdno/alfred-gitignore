@@ -1,3 +1,4 @@
+use crate::build::Build;
 use crate::exit_with_error;
 use crate::query::Query;
 use crate::repository::Repository;
@@ -23,7 +24,11 @@ impl<'a> Select<'a> {
         };
         let query_string = Select::construct_query_string(&query);
 
-        let mut items = vec![Update::item()];
+        let mut items = if query.sanitized_query().is_empty() {
+            vec![Update::item()]
+        } else {
+            vec![Build::item(&query_string)]
+        };
 
         for suggestion in query.suggestions() {
             let mut autocomplete = query_string.clone();

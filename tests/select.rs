@@ -29,10 +29,9 @@ fn select_with_suggestions() {
     command.arg("--repository").arg(repository.path());
     command.arg("apples").arg("o");
 
-    command
-        .assert()
-        .success()
-        .stdout(predicate::str::contains("Apples Oranges"));
+    command.assert().success().stdout(
+        predicate::str::contains("--build").and(predicate::str::contains("Apples Oranges")),
+    );
 }
 
 #[test]
@@ -44,8 +43,9 @@ fn select_without_input() {
 
     command.arg("--repository").arg(repository.path());
 
-    command
-        .assert()
-        .success()
-        .stdout(predicate::str::contains("Apples").and(predicate::str::contains("Oranges")));
+    command.assert().success().stdout(
+        predicate::str::contains("--update")
+            .and(predicate::str::contains("Apples"))
+            .and(predicate::str::contains("Oranges")),
+    );
 }
