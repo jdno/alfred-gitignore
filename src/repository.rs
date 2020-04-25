@@ -7,6 +7,35 @@ use zip::ZipArchive;
 
 const ARCHIVE: &str = "https://github.com/github/gitignore/archive/master.zip";
 
+/// A template represents a `*.gitignore` file in a repository.
+#[derive(Debug, Getters)]
+pub struct Template {
+    /// Returns the name of the template.
+    #[getset(get = "pub")]
+    name: String,
+
+    /// Returns the file name of the template.
+    #[getset(get = "pub")]
+    file_name: String,
+
+    /// Returns a sanitized version of the template's name for comparisons.
+    #[getset(get = "pub")]
+    comparator: String,
+}
+
+impl Template {
+    /// Returns a new instance of a template for the given file name.
+    pub fn new(file_name: &str) -> Template {
+        let name = file_name.replace(".gitignore", "");
+
+        Template {
+            comparator: name.to_lowercase(),
+            file_name: String::from(file_name),
+            name,
+        }
+    }
+}
+
 /// The repository with `.gitignore` files
 ///
 /// The repository is a copy of the [github/gitignore](https://github.com/github/gitignore) Git
@@ -41,10 +70,10 @@ impl Repository {
     /// The templates in a repository are all the `*.gitignore` files in its path. Since this is a
     /// convention, only the base names of the files are returned without their ending. For example,
     /// only `GitHub` is returned for the template `GitHub.gitignore`.
-    pub fn templates(&self) -> Result<Vec<String>, Error> {
+    pub fn templates(&self) -> Result<Vec<Template>, Error> {
         let entries = read_dir(self.path())?;
 
-        let mut templates: Vec<String> = entries
+        let mut templates: Vec<Template> = entries
             .filter_map(|entry| {
                 let entry = match entry {
                     Ok(entry) => entry,
@@ -58,14 +87,14 @@ impl Repository {
                 };
 
                 if file_name.ends_with(".gitignore") {
-                    Some(String::from(file_name).replace(".gitignore", ""))
+                    Some(Template::new(file_name))
                 } else {
                     None
                 }
             })
             .collect();
 
-        templates.sort();
+        templates.sort_by(|a, b| a.name().cmp(b.name()));
 
         Ok(templates)
     }
@@ -229,7 +258,8 @@ mod tests {
         let repository = initialize_repository(repository_path.path()).unwrap();
 
         let templates = repository.templates().unwrap();
+        let template_names: Vec<&String> = templates.iter().map(|t| t.name()).collect();
 
-        assert_eq!(vec!["apples", "oranges"], templates);
+        assert_eq!(vec!["apples", "oranges"], template_names);
     }
 }

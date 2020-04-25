@@ -7,6 +7,8 @@ use std::path::PathBuf;
 use std::process::exit;
 
 mod command;
+
+mod query;
 mod repository;
 
 #[cfg(test)]
