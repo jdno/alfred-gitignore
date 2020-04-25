@@ -2,7 +2,7 @@ use crate::builder::Builder;
 use crate::exit_with_error;
 use crate::query::Query;
 use crate::repository::Repository;
-use alfred::{Item, ItemBuilder, ItemType};
+use alfred::{ItemBuilder, ItemType};
 use clap::Values;
 use std::fs::read_to_string;
 use std::io::stdout;
