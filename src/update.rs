@@ -12,7 +12,8 @@ impl<'a> Update<'a> {
     pub fn item() -> Item<'a> {
         ItemBuilder::new("Update .gitignore templates")
             .subtitle("Download the latest templates from github/gitignore")
-            .arg("--update")
+            .autocomplete("--update")
+            .valid(false)
             .into_item()
     }
 
@@ -22,7 +23,9 @@ impl<'a> Update<'a> {
                 alfred::json::write_items(
                     stdout(),
                     &[ItemBuilder::new("Successfully updated the templates")
-                        .subtitle("The latest templates from github/gitignore have been downloaded")
+                        .subtitle("Press Enter to start building a .gitignore file")
+                        .autocomplete("")
+                        .valid(false)
                         .into_item()],
                 )
                 .unwrap();
