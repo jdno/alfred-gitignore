@@ -13,6 +13,20 @@ repository = "https://github.com/jdno/alfred-gitignore"
 categories = ["command-line-utilities"]
 keywords = ["cli", "git", "gitignore", "alfred", "workflow"]
 
+[package.metadata.release]
+ disable-publish = true
+ disable-push = true
+ disable-tag = true
+ no-dev-version = true
+ pre-release-commit-message = "Release {{version}}"
+ pre-release-replacements = [
+   {file="CHANGELOG.md", search="## \\[Unreleased\\]", replace="## [{{version}}] - {{date}}"},
+   {file="CHANGELOG.md", search="\\.\\.\\.HEAD", replace="...v{{version}}", exactly=1},
+   {file="CHANGELOG.md", search="<!-- next-header -->", replace="<!-- next-header -->\n\n## [Unreleased]", exactly=1},
+   {file="CHANGELOG.md", search="\\[unreleased\\]", replace="[{{version}}]"},
+   {file="CHANGELOG.md", search="<!-- next-url -->\n", replace="<!-- next-url -->\n\n[unreleased]: https://github.com/jdno/alfred-gitignore/compare/v{{version}}...HEAD", exactly=1},
+ ]
+
 [dependencies]
 alfred = "4.0.2"
 clap = "2.33.0"
