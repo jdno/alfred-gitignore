@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) as defined
 by [Cargo](https://doc.rust-lang.org/cargo/reference/manifest.html#the-version-field)
 and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution.md).
 
+<!-- next-header -->
+
 ## [Unreleased]
 
 ### Changed
@@ -27,6 +29,8 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 ### Added
 
 - Release a workflow that can create `.gitignore` files from Alfred
+
+<!-- next-url -->
 
 [unreleased]: https://github.com/jdno/alfred-gitignore/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/jdno/alfred-gitignore/compare/v1.0.0...v1.1.0
