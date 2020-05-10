@@ -10,6 +10,10 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix `Path to repository does not exist` error for fresh installations ([#4](https://github.com/jdno/alfred-gitignore/issues/4))
+
 ## [2.0.0] - 2020-04-26
 
 ### Changed
