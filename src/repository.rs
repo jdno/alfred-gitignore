@@ -1,6 +1,6 @@
 use getset::Getters;
 use std::env::temp_dir;
-use std::fs::{read_dir, File};
+use std::fs::{create_dir, read_dir, File};
 use std::io::{copy, Error, ErrorKind};
 use std::path::PathBuf;
 use zip::ZipArchive;
@@ -56,10 +56,7 @@ impl Repository {
     /// repository, or an error that explains why the repository could not be initialized.
     pub fn new(path: PathBuf) -> Result<Self, Error> {
         if !path.exists() {
-            return Err(Error::new(
-                ErrorKind::NotFound,
-                "Path to repository does not exist",
-            ));
+            create_dir(&path)?;
         }
 
         Ok(Repository { path })
@@ -188,8 +185,7 @@ mod tests {
     use crate::testing::initialize_repository;
     use mockito::{mock, Mock};
     use std::fs::{remove_file, File};
-    use std::io::{ErrorKind, Write};
-    use std::path::PathBuf;
+    use std::io::Write;
     use tempdir::TempDir;
 
     const ARCHIVE: &[u8] = include_bytes!("../tests/files/gitignore-master.zip");
@@ -212,9 +208,13 @@ mod tests {
 
     #[test]
     fn new_with_empty_path() {
-        let repository = Repository::new(PathBuf::from("does-not-exist"));
+        let directory = TempDir::new("new_with_existing_path").unwrap();
+        let path = directory.path().join("does-not-exist");
 
-        assert_eq!(ErrorKind::NotFound, repository.unwrap_err().kind());
+        let repository = Repository::new(path.clone());
+
+        assert!(repository.is_ok());
+        assert!(path.exists());
     }
 
     #[test]
