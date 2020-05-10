@@ -21,6 +21,10 @@ The workflow can be started by typing the following keyword into [Alfred]:
 
     gitignore
 
+**Important!** `alfred-gitignore` is shipped as an unsigned binary, which in
+recent versions of macOS this will prompt a warning. Go to `System Preferences`
+in macOS, click on `Security & Privacy`, and allow `alfred-gitignore` to run.
+
 When running the workflow for the first time, only an action to update the
 templates will be shown. Run this action to download the [latest templates from
 GitHub][templates]. When the download is done, press `Enter` to start building a
