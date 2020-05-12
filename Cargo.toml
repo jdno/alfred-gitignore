@@ -29,7 +29,7 @@ keywords = ["cli", "git", "gitignore", "alfred", "workflow"]
 
 [dependencies]
 alfred = "4.0.2"
-clap = "2.33.0"
+clap = "2.33.1"
 getset = "0.1.0"
 reqwest = { version = "0.10.4", features = ["blocking"] }
 zip = "0.5.5"
