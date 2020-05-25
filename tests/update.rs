@@ -1,12 +1,12 @@
 use assert_cmd::Command;
 use std::fs::read_dir;
-use tempdir::TempDir;
+use tempfile::TempDir;
 
 #[test]
 fn update() {
     let mut command = Command::cargo_bin("alfred-gitignore").unwrap();
 
-    let repository = TempDir::new("alfred-gitignore").unwrap();
+    let repository = TempDir::new().unwrap();
     command.arg("--repository").arg(repository.path());
     command.arg("--update");
 

@@ -107,11 +107,11 @@ impl Query {
 mod tests {
     use crate::query::Query;
     use crate::testing::initialize_repository;
-    use tempdir::TempDir;
+    use tempfile::TempDir;
 
     #[test]
     fn new_without_query() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, None).unwrap();
@@ -123,7 +123,7 @@ mod tests {
 
     #[test]
     fn new_with_query() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, Some(vec!["apples"])).unwrap();
@@ -137,7 +137,7 @@ mod tests {
 
     #[test]
     fn sanitized_query() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, Some(vec!["Apples", "Peaches"]))
@@ -150,7 +150,7 @@ mod tests {
 
     #[test]
     fn suggestions_without_query() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, Some(Vec::new())).unwrap();
@@ -162,7 +162,7 @@ mod tests {
 
     #[test]
     fn suggestions_without_match() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, Some(vec!["Apples"])).unwrap();
@@ -174,7 +174,7 @@ mod tests {
 
     #[test]
     fn suggestions_with_match() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
 
         let query = Query::new(&repository, Some(vec!["Or"])).unwrap();

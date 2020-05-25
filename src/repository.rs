@@ -186,7 +186,7 @@ mod tests {
     use mockito::{mock, Mock};
     use std::fs::{remove_file, File};
     use std::io::Write;
-    use tempdir::TempDir;
+    use tempfile::TempDir;
 
     const ARCHIVE: &[u8] = include_bytes!("../tests/files/gitignore-master.zip");
 
@@ -200,7 +200,7 @@ mod tests {
 
     #[test]
     fn new_with_existing_path() {
-        let directory = TempDir::new("new_with_existing_path").unwrap();
+        let directory = TempDir::new().unwrap();
         let repository = Repository::new(directory.into_path());
 
         assert!(repository.is_ok())
@@ -208,7 +208,7 @@ mod tests {
 
     #[test]
     fn new_with_empty_path() {
-        let directory = TempDir::new("new_with_existing_path").unwrap();
+        let directory = TempDir::new().unwrap();
         let path = directory.path().join("does-not-exist");
 
         let repository = Repository::new(path.clone());
@@ -219,7 +219,7 @@ mod tests {
 
     #[test]
     fn download_archive() {
-        let directory = TempDir::new("new_with_existing_path").unwrap();
+        let directory = TempDir::new().unwrap();
         let repository = Repository::new(directory.into_path()).unwrap();
 
         let _mock = mock_get_archive();
@@ -237,10 +237,10 @@ mod tests {
 
     #[test]
     fn extract_archive() {
-        let repository_path = TempDir::new("alfred-gitignore").unwrap();
+        let repository_path = TempDir::new().unwrap();
         let repository = Repository::new(repository_path.into_path()).unwrap();
 
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let archive_path = tempdir.path().join("archive.zip");
         let mut archive = File::create(&archive_path).unwrap();
         archive.write_all(ARCHIVE).unwrap();
@@ -254,7 +254,7 @@ mod tests {
 
     #[test]
     fn templates_returns_names() {
-        let repository_path = TempDir::new("alfred-gitignore").unwrap();
+        let repository_path = TempDir::new().unwrap();
         let repository = initialize_repository(repository_path.path()).unwrap();
 
         let templates = repository.templates().unwrap();
