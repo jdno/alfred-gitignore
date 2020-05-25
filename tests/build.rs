@@ -3,7 +3,7 @@ use predicates::prelude::*;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
-use tempdir::TempDir;
+use tempfile::TempDir;
 
 fn write_templates(path: &Path) {
     let mut apples = File::create(path.join("Apples.gitignore")).unwrap();
@@ -23,7 +23,7 @@ fn write_templates(path: &Path) {
 fn build() {
     let mut command = Command::cargo_bin("alfred-gitignore").unwrap();
 
-    let repository = TempDir::new("alfred-gitignore").unwrap();
+    let repository = TempDir::new().unwrap();
     write_templates(repository.path());
 
     command.arg("--repository").arg(repository.path());

@@ -78,11 +78,11 @@ mod tests {
     use crate::query::Query;
     use crate::testing::initialize_repository;
     use std::fs::read_to_string;
-    use tempdir::TempDir;
+    use tempfile::TempDir;
 
     #[test]
     fn build_one_file() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
         let query = Query::new(&repository, Some(vec!["apples"])).unwrap();
 
@@ -98,7 +98,7 @@ mod tests {
 
     #[test]
     fn build_two_files() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
         let query = Query::new(&repository, Some(vec!["oranges", "apples"])).unwrap();
 
@@ -115,7 +115,7 @@ mod tests {
 
     #[test]
     fn file_name() {
-        let tempdir = TempDir::new("alfred-gitignore").unwrap();
+        let tempdir = TempDir::new().unwrap();
         let repository = initialize_repository(tempdir.path()).unwrap();
         let query = Query::new(&repository, Some(vec!["apples"])).unwrap();
 
