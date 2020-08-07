@@ -10,6 +10,10 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 ## [Unreleased]
 
+### Added
+
+- Add template names as section headings to `.gitignore` file
+
 ## [2.0.1] - 2020-05-10
 
 ### Fixed

@@ -33,5 +33,5 @@ fn build() {
     command
         .assert()
         .success()
-        .stdout(predicate::str::contains("### apples.gitignore"));
+        .stdout(predicate::str::contains("### Apples.gitignore"));
 }
