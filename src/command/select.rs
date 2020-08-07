@@ -1,8 +1,8 @@
-use crate::build::Build;
+use super::build::Build;
+use super::update::Update;
 use crate::exit_with_error;
 use crate::query::Query;
 use crate::repository::Repository;
-use crate::update::Update;
 use alfred::ItemBuilder;
 use clap::Values;
 use std::io::stdout;

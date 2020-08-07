@@ -1,16 +1,14 @@
-use crate::build::Build;
+use crate::command::build::Build;
+use crate::command::select::Select;
+use crate::command::update::Update;
 use crate::repository::Repository;
-use crate::select::Select;
-use crate::update::Update;
 use alfred::ItemBuilder;
 use clap::{crate_version, App, Arg};
 use std::io::{stdout, Error, ErrorKind};
 use std::path::PathBuf;
 use std::process::exit;
 
-mod build;
-mod select;
-mod update;
+mod command;
 
 mod builder;
 mod query;
