@@ -34,11 +34,18 @@ impl Builder {
         let destination = temp_dir().join(self.file_name());
         let mut file = File::create(&destination)?;
 
-        for template in &self.templates {
-            let template_path = self.repository.path().join(template.file_name());
-            let content = read_to_string(template_path)?;
+        for i in 0..self.templates.len() {
+            if let Some(template) = self.templates.get(i) {
+                let template_path = self.repository.path().join(template.file_name());
+                let content = read_to_string(template_path)?;
 
-            file.write_all(&content.as_bytes())?;
+                file.write_all(format!("### {}\n", template.file_name()).as_bytes())?;
+                file.write_all(&content.as_bytes())?;
+
+                if i < self.templates.len() - 1 {
+                    file.write_all(b"\n")?;
+                }
+            }
         }
 
         file.sync_all()?;
@@ -89,11 +96,13 @@ mod tests {
         let builder = Builder::new(repository, &query);
         let path = builder.build().unwrap();
 
+        let mut expected = String::new();
+        expected.push_str("### apples.gitignore\n");
+        expected.push_str(include_str!("../tests/files/repository/apples.gitignore"));
+
         let content = read_to_string(path).unwrap();
-        assert_eq!(
-            include_str!("../tests/files/repository/apples.gitignore"),
-            content
-        );
+
+        assert_eq!(expected, content);
     }
 
     #[test]
@@ -106,7 +115,10 @@ mod tests {
         let path = builder.build().unwrap();
 
         let mut expected = String::new();
+        expected.push_str("### oranges.gitignore\n");
         expected.push_str(include_str!("../tests/files/repository/oranges.gitignore"));
+
+        expected.push_str("\n### apples.gitignore\n");
         expected.push_str(include_str!("../tests/files/repository/apples.gitignore"));
 
         let content = read_to_string(path).unwrap();
