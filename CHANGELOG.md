@@ -10,6 +10,8 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 ## [Unreleased]
 
+## [2.1.0] - 2020-08-07
+
 ### Added
 
 - Add template names as section headings to `.gitignore` file
@@ -44,7 +46,8 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 <!-- next-url -->
 
-[unreleased]: https://github.com/jdno/alfred-gitignore/compare/v2.0.1...HEAD
+[unreleased]: https://github.com/jdno/alfred-gitignore/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/jdno/alfred-gitignore/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/jdno/alfred-gitignore/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/jdno/alfred-gitignore/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/jdno/alfred-gitignore/compare/v1.0.0...v1.1.0
