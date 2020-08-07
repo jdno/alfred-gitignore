@@ -9,26 +9,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
           path: ~/.cargo/registry
-          key: ${{ runner.os }}-stable-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-stable-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-registry-v1-
 
       - name: Cache cargo index
         uses: actions/cache@v1
         with:
           path: ~/.cargo/git
-          key: ${{ runner.os }}-stable-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-stable-cargo-index-v1-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-index-v1-v1-
 
       - name: Cache cargo build
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-stable-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Checkout code
-        uses: actions/checkout@v2
+          key: ${{ runner.os }}-stable-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-build-target-v1-
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -71,26 +74,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
           path: ~/.cargo/registry
-          key: ${{ runner.os }}-stable-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-stable-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-registry-v1-
 
       - name: Cache cargo index
         uses: actions/cache@v1
         with:
           path: ~/.cargo/git
-          key: ${{ runner.os }}-stable-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-stable-cargo-index-v1-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-index-v1-v1-
 
       - name: Cache cargo build
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-stable-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Checkout code
-        uses: actions/checkout@v2
+          key: ${{ runner.os }}-stable-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-stable-cargo-build-target-v1-
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -123,26 +129,29 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
           path: ~/.cargo/registry
-          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.rust }}-cargo-registry-v1-
 
       - name: Cache cargo index
         uses: actions/cache@v1
         with:
           path: ~/.cargo/git
-          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-index-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.rust }}-cargo-index-v1-
 
       - name: Cache cargo build
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Checkout code
-        uses: actions/checkout@v2
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.rust }}-cargo-build-target-v1-
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
