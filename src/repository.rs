@@ -155,7 +155,7 @@ impl Repository {
                 Err(_) => continue, // TODO Log an error
             };
 
-            let sanitized_name = file.sanitized_name();
+            let sanitized_name = PathBuf::from(file.name());
 
             let file_name = match sanitized_name.file_name() {
                 Some(base_name) => base_name,
