@@ -32,7 +32,7 @@ impl<'a> Select<'a> {
 
         for suggestion in query.suggestions() {
             let mut autocomplete = query_string.clone();
-            autocomplete.push_str(" ");
+            autocomplete.push(' ');
             autocomplete.push_str(&suggestion);
 
             items.push(
@@ -60,7 +60,7 @@ impl<'a> Select<'a> {
                 .cloned()
                 .collect();
 
-            query_string.push_str(" ");
+            query_string.push(' ');
             query_string.push_str(&names.join(" "));
         }
 
