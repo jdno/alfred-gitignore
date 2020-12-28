@@ -12,26 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache cargo registry
-        uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-stable-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-registry-v1-
-
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-stable-cargo-index-v1-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-index-v1-v1-
-
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-stable-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-build-target-v1-
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -77,26 +64,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache cargo registry
-        uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-stable-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-registry-v1-
-
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-stable-cargo-index-v1-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-index-v1-v1-
-
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-stable-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-build-target-v1-
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -126,26 +100,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache cargo registry
-        uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-stable-cargo-registry-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-registry-v1-
-
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-stable-cargo-index-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-index-v1-
-
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-stable-cargo-build-target-v1-${{ hashFiles('Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-stable-cargo-build-target-v1-
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
