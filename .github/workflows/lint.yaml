@@ -28,7 +28,6 @@ jobs:
       - name: prettier
         uses: creyD/prettier_action@v3.2
         with:
-          branch: ${{ github.head_ref }}
           dry: true
 
   yaml:
