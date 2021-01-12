@@ -40,4 +40,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run yamllint
-        uses: actionshub/yamllint@v1.0.0
+        uses: actionshub/yamllint@1.0.0
