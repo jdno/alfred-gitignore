@@ -36,6 +36,6 @@ zip = "0.5.9"
 
 [dev-dependencies]
 assert_cmd = "1.0.2"
-mockito = "0.28.0"
+mockito = "0.29.0"
 predicates = "1.0.7"
 tempfile = "3.2.0"
