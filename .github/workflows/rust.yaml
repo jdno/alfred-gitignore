@@ -12,14 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
-
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -64,14 +56,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
-
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -99,14 +83,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-stable-cargo-v2-${{ hashFiles('Cargo.lock') }}
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
