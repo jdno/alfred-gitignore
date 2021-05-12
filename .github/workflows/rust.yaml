@@ -21,7 +21,7 @@ jobs:
           components: clippy
 
       - name: Run Clippy
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/cargo@v1.0.3
         with:
           command: clippy
           args: --all-targets --all-features -- -D warnings
@@ -43,7 +43,7 @@ jobs:
           components: rustfmt
 
       - name: Run Rustfmt
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/cargo@v1.0.3
         with:
           command: fmt
           args: --all -- --check
@@ -92,7 +92,7 @@ jobs:
           override: true
 
       - name: Run tests
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/cargo@v1.0.3
         with:
           command: test
           args: --verbose
