@@ -1,0 +1,19 @@
+---
+- name: C-bug
+  color: 1abc9c
+  description: "Category: Bug"
+- name: C-dependency
+  color: 1abc9c
+  description: "Category: Dependency"
+- name: C-documentation
+  color: 1abc9c
+  description: "Category: Documentation"
+- name: C-feature-request
+  color: 1abc9c
+  description: "Category: Feature requests"
+- name: PR-block
+  color: 3498db
+  description: "Pull Request: Do not merge"
+- name: PR-merge
+  color: 3498db
+  description: "Pull Request: Merge when ready"

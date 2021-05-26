@@ -2,20 +2,18 @@
 version: 2
 
 updates:
-  - package-ecosystem: "cargo"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    assignees:
-      - "jdno"
-    reviewers:
-      - "jdno"
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-    assignees:
-      - "jdno"
-    reviewers:
-      - "jdno"
+    labels:
+      - "C-dependency"
+      - "PR-merge"
+
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "C-dependency"
+      - "PR-merge"

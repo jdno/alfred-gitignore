@@ -1,0 +1,9 @@
+---
+blockingLabels:
+  - PR-block
+
+requiredLabels:
+  - PR-merge
+
+mergeMethod: squash
+reportStatus: true
