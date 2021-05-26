@@ -14,10 +14,7 @@ pub struct Select<'a> {
 
 impl<'a> Select<'a> {
     pub fn perform(repository: &Repository, selections: Option<Values>) -> ! {
-        let selections = match selections {
-            Some(values) => Some(values.collect()),
-            None => None,
-        };
+        let selections = selections.map(|values| values.collect());
         let query = match Query::new(repository, selections) {
             Ok(query) => query,
             Err(error) => exit_with_error(&error),
