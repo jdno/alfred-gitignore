@@ -2,7 +2,7 @@ use getset::Getters;
 use std::env::temp_dir;
 use std::fs::{create_dir, read_dir, File};
 use std::io::{copy, Error, ErrorKind};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use zip::ZipArchive;
 
 const ARCHIVE: &str = "https://github.com/github/gitignore/archive/master.zip";
@@ -140,7 +140,7 @@ impl Repository {
     /// files are written to the given repository. While doing so, the directory structure is
     /// flattened. For example, `github/gitignore.gitignore` is written to `gitignore.gitignore` and
     /// the `github` directory is ignored.
-    fn extract_archive(&self, archive: &PathBuf) -> Result<(), Error> {
+    fn extract_archive(&self, archive: &Path) -> Result<(), Error> {
         let file = File::open(archive)?;
 
         let mut archive = match ZipArchive::new(file) {
