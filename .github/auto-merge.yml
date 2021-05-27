@@ -5,5 +5,5 @@ blockingLabels:
 requiredLabels:
   - PR-merge
 
-mergeMethod: squash
+mergeMethod: rebase
 reportStatus: true
