@@ -35,7 +35,7 @@ reqwest = { version = "0.11.3", features = ["blocking"] }
 zip = "0.5.12"
 
 [dev-dependencies]
-assert_cmd = "1.0.4"
+assert_cmd = "1.0.5"
 mockito = "0.30.0"
 predicates = "1.0.8"
 tempfile = "3.2.0"
