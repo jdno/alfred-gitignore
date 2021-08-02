@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v3.4.0
+        uses: fkirc/skip-duplicate-actions@v3.4.1
         id: skip_check
         with:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v3.4.0
+        uses: fkirc/skip-duplicate-actions@v3.4.1
         id: skip_check
         with:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
@@ -82,7 +82,7 @@ jobs:
 
     steps:
       - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v3.4.0
+        uses: fkirc/skip-duplicate-actions@v3.4.1
         id: skip_check
         with:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
@@ -133,7 +133,7 @@ jobs:
 
     steps:
       - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v3.4.0
+        uses: fkirc/skip-duplicate-actions@v3.4.1
         id: skip_check
         with:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
