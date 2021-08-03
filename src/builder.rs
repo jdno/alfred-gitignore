@@ -40,7 +40,7 @@ impl Builder {
                 let content = read_to_string(template_path)?;
 
                 file.write_all(format!("### {}\n", template.file_name()).as_bytes())?;
-                file.write_all(&content.as_bytes())?;
+                file.write_all(content.as_bytes())?;
 
                 if i < self.templates.len() - 1 {
                     file.write_all(b"\n")?;
