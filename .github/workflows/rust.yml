@@ -115,7 +115,7 @@ jobs:
           version: 0.16.0
 
       - name: Upload to codecov.io
-        uses: codecov/codecov-action@v2.0.3
+        uses: codecov/codecov-action@v2.1.0
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
