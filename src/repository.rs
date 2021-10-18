@@ -91,10 +91,6 @@ impl Repository {
             })
             .collect();
 
-        // Clippy throws a false negative here, probably caused by either of the two issues:
-        // - https://github.com/rust-lang/rust-clippy/issues/5754
-        // - https://github.com/rust-lang/rust-clippy/issues/6001
-        #[allow(clippy::unnecessary_sort_by)]
         templates.sort_by(|a, b| a.name().cmp(b.name()));
 
         Ok(templates)
