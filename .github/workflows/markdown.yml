@@ -41,7 +41,7 @@ jobs:
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: prettier
-        uses: creyD/prettier_action@v4.0
+        uses: creyD/prettier_action@v4.1
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
         with:
           dry: true
