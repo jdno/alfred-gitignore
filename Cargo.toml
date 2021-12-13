@@ -1,6 +1,6 @@
 [package]
 name = "alfred-gitignore"
-version = "2.1.0"
+version = "2.1.1"
 license = "MIT"
 authors = ["Jan David <jandavid@6a64.com>"]
 edition = "2018"

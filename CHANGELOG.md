@@ -10,6 +10,8 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 ## [Unreleased]
 
+## [2.1.1] - 2021-12-13
+
 ### Fixed
 
 - Update target branch for `github/gitignore` to 'main'
@@ -50,7 +52,8 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 <!-- next-url -->
 
-[unreleased]: https://github.com/jdno/alfred-gitignore/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/jdno/alfred-gitignore/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/jdno/alfred-gitignore/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/jdno/alfred-gitignore/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/jdno/alfred-gitignore/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/jdno/alfred-gitignore/compare/v1.1.0...v2.0.0
