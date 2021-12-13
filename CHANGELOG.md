@@ -10,6 +10,10 @@ and [Rust](https://github.com/rust-lang/rfcs/blob/master/text/1105-api-evolution
 
 ## [Unreleased]
 
+### Fixed
+
+- Update target branch for `github/gitignore` to 'main'
+
 ## [2.1.0] - 2020-08-07
 
 ### Added

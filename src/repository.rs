@@ -5,7 +5,7 @@ use std::io::{copy, Error, ErrorKind};
 use std::path::{Path, PathBuf};
 use zip::ZipArchive;
 
-const ARCHIVE: &str = "https://github.com/github/gitignore/archive/master.zip";
+const ARCHIVE: &str = "https://github.com/github/gitignore/archive/main.zip";
 
 /// A template represents a `*.gitignore` file in a repository.
 #[derive(Clone, Debug, Getters)]
@@ -111,7 +111,7 @@ impl Repository {
     ///
     /// `alfred-gitignore` uses the `.gitignore` templates that GitHub provides in the
     /// [github/gitignore](https://github.com/github/gitignore) repository. An archive with with
-    /// latest version of the `master` branch can be downloaded and stored at a temporary location
+    /// latest version of the `main` branch can be downloaded and stored at a temporary location
     /// using this function. It either returns the path to the file, or the error that occurred
     /// while attempting the download.
     fn download_archive(&self, url: Option<String>) -> Result<PathBuf, Error> {
@@ -188,7 +188,7 @@ mod tests {
     use std::io::Write;
     use tempfile::TempDir;
 
-    const ARCHIVE: &[u8] = include_bytes!("../tests/files/gitignore-master.zip");
+    const ARCHIVE: &[u8] = include_bytes!("../tests/files/gitignore-main.zip");
 
     fn mock_get_archive() -> Mock {
         mock("GET", "/")
