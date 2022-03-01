@@ -16,7 +16,7 @@ jobs:
           paths: '["**.md"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: markdownlint-cli
@@ -37,7 +37,7 @@ jobs:
           paths: '["**.md"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: prettier
