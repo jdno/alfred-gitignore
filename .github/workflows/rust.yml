@@ -16,7 +16,7 @@ jobs:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: Cache build artifacts
@@ -57,7 +57,7 @@ jobs:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: Set up Rust toolchain
@@ -88,7 +88,7 @@ jobs:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: Cache build artifacts
@@ -139,7 +139,7 @@ jobs:
           paths: '["**.rs", "**Cargo.{toml,lock}"]'
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: Cache build artifacts
