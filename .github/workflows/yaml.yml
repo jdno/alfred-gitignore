@@ -20,7 +20,7 @@ jobs:
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: Run yamllint
-        uses: actionshub/yamllint@1.0.0
+        uses: actionshub/yamllint@1.0.1
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
   style:
