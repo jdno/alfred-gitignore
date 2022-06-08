@@ -20,7 +20,7 @@ jobs:
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
 
       - name: markdownlint-cli
-        uses: nosborn/github-action-markdown-cli@v3.0.1
+        uses: nosborn/github-action-markdown-cli@v3.1.0
         if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
         with:
           files: "**.md"
