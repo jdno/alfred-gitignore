@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install system dependenies
+        run: sudo apt-get install libssl-dev
+
       - name: Determine if files changed
         uses: fkirc/skip-duplicate-actions@v5.3.0
         id: skip_check
