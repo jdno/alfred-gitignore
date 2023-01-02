@@ -1,171 +1,27 @@
 ---
 name: Rust
 
-"on": [push]
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "**.rs"
+      - "**.toml"
+  pull_request:
+    paths:
+      - "**.rs"
+      - "**.toml"
 
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install system dependenies
-        run: sudo apt-get install libssl-dev
-
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.rs", "**Cargo.{toml,lock}"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: Cache build artifacts
-        uses: actions/cache@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-
-      - name: Set up Rust toolchain
-        uses: actions-rs/toolchain@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: clippy
-
-      - name: Run Clippy
-        uses: actions-rs/cargo@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          command: clippy
-          args: --all-targets --all-features -- -D warnings
+    uses: jdno/workflows/.github/workflows/rust-lint.yml@main
 
   style:
     name: Style
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.rs", "**Cargo.{toml,lock}"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: Set up Rust toolchain
-        uses: actions-rs/toolchain@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: rustfmt
-
-      - name: Run Rustfmt
-        uses: actions-rs/cargo@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          command: fmt
-          args: --all -- --check
-
-  coverage:
-    name: Coverage
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.rs", "**Cargo.{toml,lock}"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: Cache build artifacts
-        uses: actions/cache@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-
-      - name: Set up Rust toolchain
-        uses: actions-rs/toolchain@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          toolchain: stable
-          override: true
-
-      - name: Run cargo-tarpaulin
-        uses: actions-rs/tarpaulin@master
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          version: 0.16.0
-
-      - name: Upload to codecov.io
-        uses: codecov/codecov-action@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          name: code-coverage-report
-          path: cobertura.xml
+    uses: jdno/workflows/.github/workflows/rust-style.yml@main
 
   test:
     name: Test
-    runs-on: macos-latest
-
-    steps:
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.rs", "**Cargo.{toml,lock}"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: Cache build artifacts
-        uses: actions/cache@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-
-      - name: Set up Rust toolchain
-        uses: actions-rs/toolchain@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-
-      - name: Run tests
-        uses: actions-rs/cargo@v1
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          command: test
-          args: --verbose
+    uses: jdno/workflows/.github/workflows/rust-test.yml@main

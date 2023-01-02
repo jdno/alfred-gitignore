@@ -1,46 +1,23 @@
 ---
 name: YAML
 
-"on": [push]
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "**.yml"
+      - "**.yaml"
+  pull_request:
+    paths:
+      - "**.yml"
+      - "**.yaml"
 
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.yaml", "**.yml"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: Run yamllint
-        uses: actionshub/yamllint@1.0.2
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
+    uses: jdno/workflows/.github/workflows/yaml-lint.yml@main
 
   style:
     name: Style
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Determine if files changed
-        uses: fkirc/skip-duplicate-actions@v5.3.0
-        id: skip_check
-        with:
-          paths: '["**.yaml", "**.yml"]'
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-
-      - name: prettier
-        uses: creyD/prettier_action@v4.2
-        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
-        with:
-          dry: true
-          prettier_options: "--check **.{yml,yaml}"
+    uses: jdno/workflows/.github/workflows/yaml-style.yml@main
