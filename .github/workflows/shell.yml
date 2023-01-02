@@ -1,0 +1,21 @@
+---
+name: Shell
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "**.sh"
+  pull_request:
+    paths:
+      - "**.sh"
+
+jobs:
+  lint:
+    name: Lint
+    uses: jdno/workflows/.github/workflows/shell-lint.yml@main
+
+  style:
+    name: Style
+    uses: jdno/workflows/.github/workflows/shell-style.yml@main

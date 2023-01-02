@@ -1,0 +1,17 @@
+---
+name: JSON
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "**.json"
+  pull_request:
+    paths:
+      - "**.json"
+
+jobs:
+  style:
+    name: Style
+    uses: jdno/workflows/.github/workflows/json-style.yml@main
