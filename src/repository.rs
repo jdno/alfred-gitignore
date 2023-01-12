@@ -116,7 +116,7 @@ impl Repository {
     /// while attempting the download.
     fn download_archive(&self, url: Option<String>) -> Result<PathBuf, Error> {
         let url = url.unwrap_or_else(|| String::from(ARCHIVE));
-        let mut response = reqwest::blocking::get(&url).unwrap();
+        let mut response = reqwest::blocking::get(url).unwrap();
 
         let file_path = temp_dir().join(
             PathBuf::from(ARCHIVE)
