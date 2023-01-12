@@ -16,12 +16,12 @@ name: Rust
 jobs:
   lint:
     name: Lint
-    uses: jdno/workflows/.github/workflows/rust-lint.yml@main
+    uses: jdno/workflows/.github/workflows/rust-lint.yml@run-rust-docker
 
   style:
     name: Style
-    uses: jdno/workflows/.github/workflows/rust-style.yml@main
+    uses: jdno/workflows/.github/workflows/rust-style.yml@run-rust-docker
 
   test:
     name: Test
-    uses: jdno/workflows/.github/workflows/rust-test.yml@main
+    uses: jdno/workflows/.github/workflows/rust-test.yml@run-rust-docker
