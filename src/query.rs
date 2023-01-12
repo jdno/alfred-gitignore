@@ -92,8 +92,8 @@ impl Query {
             }
         } else {
             self.templates_map
-                .iter()
-                .map(|(_key, template)| template.name())
+                .values()
+                .map(|template| template.name())
                 .cloned()
                 .collect()
         };
