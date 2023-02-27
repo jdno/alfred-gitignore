@@ -16,7 +16,7 @@ impl<'a> Build<'a> {
     pub fn item(query: &str) -> Item<'a> {
         ItemBuilder::new("Create .gitignore file")
             .subtitle("Combine the selected templates into a single .gitignore file")
-            .autocomplete(format!("--build {}", query))
+            .autocomplete(format!("--build {query}"))
             .valid(false)
             .into_item()
     }

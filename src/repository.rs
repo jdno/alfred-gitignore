@@ -144,7 +144,7 @@ impl Repository {
             Err(error) => {
                 return Err(Error::new(
                     ErrorKind::InvalidData,
-                    format!("Open ZIP archive failed with error '{}'", error),
+                    format!("Open ZIP archive failed with error '{error}'"),
                 ))
             }
         };
