@@ -5,19 +5,61 @@ name: YAML
   push:
     branches:
       - main
-    paths:
-      - "**.yml"
-      - "**.yaml"
   pull_request:
-    paths:
-      - "**.yml"
-      - "**.yaml"
 
 jobs:
+  detect-changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      any_changed: ${{ steps.detect-changes.outputs.any_changed }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get changed files
+        id: detect-changes
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/*.yml
+            **/*.yaml
+
+      - name: Print changed files
+        run: |
+          for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
+            echo "$file"
+          done
+
   lint:
-    name: Lint
-    uses: jdno/workflows/.github/workflows/yaml-lint.yml@main
+    name: Lint code
+    runs-on: ubuntu-latest
+
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any_changed == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run yamllint
+        uses: actionshub/yamllint@v1.7.1
 
   style:
-    name: Style
-    uses: jdno/workflows/.github/workflows/yaml-style.yml@main
+    name: Check style
+    runs-on: ubuntu-latest
+
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any_changed == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: prettier
+        uses: creyD/prettier_action@v4.3
+        with:
+          dry: true
+          prettier_options: "--check **/*.{yml,yaml}"
