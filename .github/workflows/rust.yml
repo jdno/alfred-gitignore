@@ -44,15 +44,15 @@ jobs:
     needs: detect-changes
     if: needs.detect-changes.outputs.any_changed == 'true'
 
+    container:
+      image: ghcr.io/jdno/rust:main
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Cache build artifacts
         uses: swatinem/rust-cache@v2.5.0
-
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@stable
 
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
@@ -64,12 +64,12 @@ jobs:
     needs: detect-changes
     if: needs.detect-changes.outputs.any_changed == 'true'
 
+    container:
+      image: ghcr.io/jdno/rust:main
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@stable
 
       - name: Run Rustfmt
         run: cargo fmt --all -- --check
