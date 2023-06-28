@@ -10,12 +10,14 @@ jobs:
     name: Publish crate
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+    container:
+      image: ghcr.io/jdno/rust:main
 
-      - uses: actions-rs/cargo@v1
-        with:
-          command: publish
-          args: -v --all-features
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Publish crate
+        run: cargo publish -v --all-features
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
