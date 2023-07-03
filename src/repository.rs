@@ -183,19 +183,24 @@ impl Repository {
 mod tests {
     use crate::repository::Repository;
     use crate::testing::initialize_repository;
-    use mockito::{mock, Mock};
+    use mockito::{Server, ServerGuard};
     use std::fs::{remove_file, File};
     use std::io::Write;
     use tempfile::TempDir;
 
     const ARCHIVE: &[u8] = include_bytes!("../tests/files/gitignore-main.zip");
 
-    fn mock_get_archive() -> Mock {
-        mock("GET", "/")
+    fn mock_get_archive() -> ServerGuard {
+        let mut server = Server::new();
+
+        server
+            .mock("GET", "/")
             .with_status(200)
             .with_header("Content-Type", "application/zip")
-            .with_body(ARCHIVE.as_ref())
-            .create()
+            .with_body::<&[u8]>(ARCHIVE.as_ref())
+            .create();
+
+        server
     }
 
     #[test]
@@ -222,11 +227,9 @@ mod tests {
         let directory = TempDir::new().unwrap();
         let repository = Repository::new(directory.into_path()).unwrap();
 
-        let _mock = mock_get_archive();
+        let mock = mock_get_archive();
 
-        let file = repository
-            .download_archive(Some(mockito::server_url()))
-            .unwrap();
+        let file = repository.download_archive(Some(mock.url())).unwrap();
 
         assert!(file.exists());
         assert_eq!("zip", file.extension().unwrap());
