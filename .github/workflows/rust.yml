@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Cache build artifacts
-        uses: swatinem/rust-cache@v2.6.0
+        uses: swatinem/rust-cache@v2.6.1
 
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
@@ -90,7 +90,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Cache build artifacts
-        uses: swatinem/rust-cache@v2.6.0
+        uses: swatinem/rust-cache@v2.6.1
 
       - name: Run tests with test coverage
         run: |
