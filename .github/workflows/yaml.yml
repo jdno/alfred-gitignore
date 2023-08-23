@@ -21,7 +21,7 @@ jobs:
 
       - name: Get changed files
         id: detect-changes
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@v38
         with:
           files: |
             **/*.yaml
