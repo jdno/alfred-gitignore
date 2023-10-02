@@ -100,7 +100,7 @@ jobs:
             --timeout 120 \
             --target-dir target/tarpaulin-target/ \
             --skip-clean \
-            --out Xml
+            --out xml
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v4
