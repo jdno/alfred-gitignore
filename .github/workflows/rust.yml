@@ -95,12 +95,13 @@ jobs:
       - name: Run tests with test coverage
         run: |
           cargo +nightly tarpaulin \
-            --verbose \
             --all-features \
-            --timeout 120 \
-            --target-dir target/tarpaulin-target/ \
+            --engine llvm \
+            --out xml \
             --skip-clean \
-            --out xml
+            --target-dir target/tarpaulin-target/ \
+            --timeout 120 \
+            --verbose
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v4
