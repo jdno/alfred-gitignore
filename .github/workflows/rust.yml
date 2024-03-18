@@ -82,7 +82,7 @@ jobs:
     if: needs.detect-changes.outputs.any_changed == 'true'
 
     container:
-      image: xd009642/tarpaulin:develop-nightly
+      image: xd009642/tarpaulin:0.27.3-slim
       options: --security-opt seccomp=unconfined
 
     steps:
@@ -94,7 +94,7 @@ jobs:
 
       - name: Run tests with test coverage
         run: |
-          cargo +nightly tarpaulin \
+          cargo tarpaulin \
             --all-features \
             --engine llvm \
             --out xml \
