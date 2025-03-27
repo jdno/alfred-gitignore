@@ -1,7 +1,9 @@
 # gitignore
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jdno/alfred-gitignore/Rust)](https://github.com/jdno/alfred-gitignore/actions)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/jdno/alfred-gitignore)](https://github.com/jdno/alfred-gitignore/releases)
+
+> [!WARNING]
+> This project is no longer actively maintained.
 
 _An [Alfred] workflow to quickly create a `.gitignore` file from templates._
 
@@ -108,8 +110,10 @@ possible when it is clean code.
 
 Licensed under either of
 
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE)
+  or <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT license ([LICENSE-MIT](LICENSE-MIT)
+  or <http://opensource.org/licenses/MIT>)
 
 at your option.
 
@@ -120,11 +124,19 @@ for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 dual licensed as above, without any additional terms or conditions.
 
 [alfred]: https://www.alfredapp.com
+
 [issues]: https://github.com/jdno/alfred-gitignore/issues
+
 [jdno]: https://github.com/jdno
+
 [packal]: https://www.packal.org/workflow/gitignore-0
+
 [pre-commit]: https://pre-commit.com/
+
 [pull-requests]: https://github.com/jdno/alfred-gitignore/pulls
+
 [releases]: https://github.com/jdno/alfred-gitignore/releases
+
 [rust]: https://rust-lang.org
+
 [templates]: https://github.com/github/gitignore
